@@ -94,108 +94,138 @@
         <span>Ábrelo con calma</span>
       </button>
     </div>
-    <p class="intro__hint">con audio, mejor</p>
   </section>
 
-  <!-- ═══════════ EXPERIENCIA ═══════════ -->
+  <!-- ═══════════ ESCENA 2 · Escenario principal (una sola pantalla) ═══════════ -->
   <main class="experience" id="experience" hidden>
+    <section class="stage">
+      <p class="stage__kicker rise" style="--d: 0.1s">Para mi Leoncita</p>
 
-    <!-- ESCENA 2 · Hero -->
-    <section class="hero" id="hero">
-      <p class="hero__kicker reveal">Para mi Leoncita</p>
-      <figure class="hero__figure reveal" id="hero-figure">
-        <div class="hero__halo" aria-hidden="true"></div>
-        <div class="hero__frame" id="hero-frame">
+      <figure class="stage__figure rise" id="hero-figure" style="--d: 0.25s">
+        <div class="stage__halo" aria-hidden="true"></div>
+        <div class="stage__frame" id="hero-frame">
           <img
             src="assets/images/cata.jpg"
             alt="Nosotros dos"
-            class="hero__photo"
+            class="stage__photo"
             id="hero-photo"
             decoding="async"
             fetchpriority="high"
           />
-          <div class="hero__photo-fallback" aria-hidden="true">
+          <div class="stage__photo-fallback" aria-hidden="true">
             <svg width="56" height="56"><use href="#fl-tulip"/></svg>
             <span>tú &amp; yo</span>
           </div>
-          <div class="hero__sheen" aria-hidden="true"></div>
+          <div class="stage__sheen" aria-hidden="true"></div>
         </div>
-        <figcaption class="hero__caption">tú &nbsp;&amp;&nbsp; yo</figcaption>
-      </figure>
-      <div class="hero__scrollcue reveal" aria-hidden="true">
-        <span>desliza con calma</span>
-        <i></i>
-      </div>
-    </section>
-
-    <!-- ESCENA 3 · La carta -->
-    <section class="letter-section" id="letter">
-      <header class="letter-intro reveal-group">
-        <svg class="letter-intro__flower reveal" width="44" height="44" aria-hidden="true"><use href="#fl-lily"/></svg>
-        <p class="letter-intro__eyebrow reveal">una carta, escrita despacio</p>
-      </header>
-
-      <article class="letter reveal-group" id="letter-paper">
-        <h2 class="letter__title reveal">Mi Leoncita 💗</h2>
-
-        <p class="reveal">Antes de cerrar los ojos esta noche, quería dejarte unas palabritas para que sepas que alguien piensa en ti con muchísimo cariño.</p>
-
-        <p class="reveal">Sé que hoy no te has sentido bien, y de verdad me duele imaginarte enfermita. Si pudiera, te llevaría una cobijita, un chocolatito caliente, te daría un besito en la frente y me quedaría ahí, haciéndote compañía hasta que te sintieras mejor.</p>
-
-        <p class="reveal">Pero mientras eso pasa, quiero que al menos estas palabras te abracen un poquito.</p>
-
-        <p class="reveal">No siempre tienes que ser fuerte, productiva o tener todo bajo control. Descansa. Tu cuerpo también necesita que lo escuches. Mañana habrá tiempo para seguir conquistando el mundo, hoy solo quiero que te cuides.</p>
-
-        <p class="reveal">Quiero que recuerdes algo: eres profundamente amada. No solo por mí, sino por Aquel que nunca deja de cuidarte. Incluso cuando duermes, Dios sigue velando por ti. Él conoce cada molestia, cada cansancio y cada pequeño dolor, y estoy seguro de que esta noche te sostiene entre Sus manos.</p>
-
-        <p class="reveal">Y mientras Él cuida de ti, yo también quiero hacerlo, aunque sea de la forma en que hoy puedo.</p>
-
-        <p class="reveal">Gracias por existir, por alegrar mis días, por hacerme sonreír con tus ocurrencias, por tu dulzura y por ese corazón tan bonito que tienes. No sabes cuánto agradezco a Dios por haberte puesto en mi camino.</p>
-
-        <p class="reveal">Mi oración antes de dormir es muy sencilla: que mañana despiertes un poquito mejor que hoy, con más fuerzas, con más paz y con una gran sonrisa. Ojalá pudiera verla en persona, pero mientras tanto me conformo con imaginarla.</p>
-
-        <p class="reveal">Descansa, mi niña hermosa.</p>
-
-        <p class="reveal">Que el Señor te conceda un sueño tranquilo, renueve tus fuerzas y te recuerde, incluso mientras duermes, cuánto te ama.</p>
-
-        <p class="reveal">Y cuando mañana abras los ojos, espero que recuerdes esto: anoche hubo un niño que, antes de quedarse dormido, dio gracias a Dios por tu vida y le pidió con todo su corazón que cuidara de su Leoncita.</p>
-
-        <p class="letter__vow reveal">Te amo mushito con infinito. 💗</p>
-
-        <p class="letter__signoff reveal">Buenas noches, mi niña.</p>
-      </article>
-    </section>
-
-    <!-- ESCENA 4 · Jardín interactivo -->
-    <section class="garden reveal-group" id="garden">
-      <p class="garden__hint reveal">un jardín pequeñito &mdash; toca cada flor</p>
-      <div class="garden__row reveal">
-        <button class="flower flower--sunflower" type="button" data-flower="sunflower" aria-label="Tocar el girasol">
-          <svg width="64" height="64" aria-hidden="true"><use href="#fl-sunflower"/></svg>
-        </button>
-        <button class="flower flower--tulip" type="button" data-flower="tulip" aria-label="Tocar el tulipán">
-          <svg width="64" height="64" aria-hidden="true"><use href="#fl-tulip"/></svg>
-        </button>
-        <button class="flower flower--lily" type="button" data-flower="lily" aria-label="Tocar el lirio">
-          <svg width="64" height="64" aria-hidden="true"><use href="#fl-lily"/></svg>
-        </button>
-      </div>
-    </section>
-
-    <!-- FINAL -->
-    <section class="finale" id="finale">
-      <p class="finale__message" id="finale-message">Gracias por permitirme caminar a tu lado. 💗</p>
-
-      <figure class="finale__photo-wrap" id="finale-photo" aria-hidden="true">
-        <img src="assets/images/cata.jpg" alt="" class="finale__photo" loading="lazy" decoding="async" />
+        <figcaption class="stage__caption">tú &nbsp;&amp;&nbsp; yo</figcaption>
       </figure>
 
-      <button class="finale__btn" id="replay-btn" type="button" hidden>
-        Volver a leer&nbsp;🤍
+      <!-- Cancioncita -->
+      <div class="music-card rise" style="--d: 0.4s">
+        <p class="music-card__label">Cancionsita para empezar tu día</p>
+        <div class="player" id="player">
+          <button class="player__toggle" id="player-toggle" type="button" aria-label="Reproducir la música">
+            <svg class="player__icon player__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8.5 6.2v11.6c0 .95 1.04 1.53 1.85 1.03l9.3-5.8a1.21 1.21 0 0 0 0-2.06l-9.3-5.8c-.81-.5-1.85.08-1.85 1.03Z"/>
+            </svg>
+            <svg class="player__icon player__icon--pause" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="7" y="5.5" width="3.4" height="13" rx="1.7"/>
+              <rect x="13.6" y="5.5" width="3.4" height="13" rx="1.7"/>
+            </svg>
+          </button>
+
+          <div class="player__viz" id="player-viz" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i>
+          </div>
+
+          <div class="player__timeline">
+            <span class="player__time" id="time-current">0:00</span>
+            <div class="player__track" id="player-track" role="slider" aria-label="Progreso de la canción"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+              <div class="player__fill" id="player-fill"></div>
+              <div class="player__thumb" id="player-thumb"></div>
+            </div>
+            <span class="player__time" id="time-total">0:00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- La carta -->
+      <button class="letter-btn rise" id="letter-btn" type="button" style="--d: 0.55s">
+        <span class="letter-btn__icon">💌</span>
+        <span>Una carta para ti</span>
       </button>
-    </section>
 
+      <!-- Jardín -->
+      <div class="garden rise" style="--d: 0.7s">
+        <div class="garden__row">
+          <button class="flower flower--sunflower" type="button" data-flower="sunflower" aria-label="Tocar el girasol">
+            <svg width="58" height="58" aria-hidden="true"><use href="#fl-sunflower"/></svg>
+          </button>
+          <button class="flower flower--tulip" type="button" data-flower="tulip" aria-label="Tocar el tulipán">
+            <svg width="58" height="58" aria-hidden="true"><use href="#fl-tulip"/></svg>
+          </button>
+          <button class="flower flower--lily" type="button" data-flower="lily" aria-label="Tocar el lirio">
+            <svg width="58" height="58" aria-hidden="true"><use href="#fl-lily"/></svg>
+          </button>
+        </div>
+        <p class="garden__hint">toca las flores</p>
+      </div>
+    </section>
   </main>
+
+  <!-- ═══════════ ESCENA 3 · La carta (popup) ═══════════ -->
+  <div class="modal" id="letter-modal" hidden>
+    <div class="modal__backdrop" data-close-letter></div>
+    <article class="letter" role="dialog" aria-modal="true" aria-label="Una carta para ti">
+      <button class="modal__close" id="letter-close" type="button" aria-label="Cerrar la carta">&#10005;</button>
+
+      <h2 class="letter__title">Mi Leoncita 💗</h2>
+
+      <div class="letter__body">
+        <p>Antes de cerrar los ojos esta noche, quería dejarte unas palabritas para que sepas que alguien piensa en ti con muchísimo cariño.</p>
+
+        <p>Sé que hoy no te has sentido bien, y de verdad me duele imaginarte enfermita. Si pudiera, te llevaría una cobijita, un chocolatito caliente, te daría un besito en la frente y me quedaría ahí, haciéndote compañía hasta que te sintieras mejor.</p>
+
+        <p>Pero mientras eso pasa, quiero que al menos estas palabras te abracen un poquito.</p>
+
+        <p>No siempre tienes que ser fuerte, productiva o tener todo bajo control. Descansa. Tu cuerpo también necesita que lo escuches. Mañana habrá tiempo para seguir conquistando el mundo, hoy solo quiero que te cuides.</p>
+
+        <p>Quiero que recuerdes algo: eres profundamente amada. No solo por mí, sino por Aquel que nunca deja de cuidarte. Incluso cuando duermes, Dios sigue velando por ti. Él conoce cada molestia, cada cansancio y cada pequeño dolor, y estoy seguro de que esta noche te sostiene entre Sus manos.</p>
+
+        <p>Y mientras Él cuida de ti, yo también quiero hacerlo, aunque sea de la forma en que hoy puedo.</p>
+
+        <p>Gracias por existir, por alegrar mis días, por hacerme sonreír con tus ocurrencias, por tu dulzura y por ese corazón tan bonito que tienes. No sabes cuánto agradezco a Dios por haberte puesto en mi camino.</p>
+
+        <p>Mi oración antes de dormir es muy sencilla: que mañana despiertes un poquito mejor que hoy, con más fuerzas, con más paz y con una gran sonrisa. Ojalá pudiera verla en persona, pero mientras tanto me conformo con imaginarla.</p>
+
+        <p>Descansa, mi niña hermosa.</p>
+
+        <p>Que el Señor te conceda un sueño tranquilo, renueve tus fuerzas y te recuerde, incluso mientras duermes, cuánto te ama.</p>
+
+        <p>Y cuando mañana abras los ojos, espero que recuerdes esto: anoche hubo un niño que, antes de quedarse dormido, dio gracias a Dios por tu vida y le pidió con todo su corazón que cuidara de su Leoncita.</p>
+
+        <p class="letter__vow">Te amo mushito con infinito. 💗</p>
+
+        <p class="letter__signoff">Buenas noches, mi niña.</p>
+
+        <button class="letter__end-btn" id="letter-end" type="button">Cerrar despacio 🤍</button>
+      </div>
+    </article>
+  </div>
+
+  <!-- ═══════════ FINAL ═══════════ -->
+  <div class="finale" id="finale" hidden>
+    <button class="modal__close finale__close" id="finale-close" type="button" aria-label="Volver">&#10005;</button>
+    <p class="finale__message" id="finale-message">Gracias por permitirme caminar a tu lado. 💗</p>
+    <figure class="finale__photo-wrap" id="finale-photo" aria-hidden="true">
+      <img src="assets/images/cata.jpg" alt="" class="finale__photo" loading="lazy" decoding="async" />
+    </figure>
+    <button class="finale__btn" id="replay-btn" type="button" hidden>
+      Volver a leer&nbsp;🤍
+    </button>
+  </div>
 
   <!-- Flores del borde (aparecen en el final) -->
   <div class="edge-garden" id="edge-garden" aria-hidden="true">
@@ -210,33 +240,6 @@
   <!-- Tarjeta flotante de las flores -->
   <div class="popover" id="popover" role="status" aria-live="polite" hidden>
     <p class="popover__text" id="popover-text"></p>
-  </div>
-
-  <!-- ═══════════ Reproductor ═══════════ -->
-  <div class="player" id="player" hidden>
-    <button class="player__toggle" id="player-toggle" type="button" aria-label="Pausar la música">
-      <svg class="player__icon player__icon--play" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M8.5 6.2v11.6c0 .95 1.04 1.53 1.85 1.03l9.3-5.8a1.21 1.21 0 0 0 0-2.06l-9.3-5.8c-.81-.5-1.85.08-1.85 1.03Z"/>
-      </svg>
-      <svg class="player__icon player__icon--pause" viewBox="0 0 24 24" aria-hidden="true">
-        <rect x="7" y="5.5" width="3.4" height="13" rx="1.7"/>
-        <rect x="13.6" y="5.5" width="3.4" height="13" rx="1.7"/>
-      </svg>
-    </button>
-
-    <div class="player__viz" id="player-viz" aria-hidden="true">
-      <i></i><i></i><i></i><i></i><i></i>
-    </div>
-
-    <div class="player__timeline">
-      <span class="player__time" id="time-current">0:00</span>
-      <div class="player__track" id="player-track" role="slider" aria-label="Progreso de la canción"
-           aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
-        <div class="player__fill" id="player-fill"></div>
-        <div class="player__thumb" id="player-thumb"></div>
-      </div>
-      <span class="player__time" id="time-total">0:00</span>
-    </div>
   </div>
 
   <audio id="audio" src="assets/music/build-my-life.mp3" preload="metadata"></audio>

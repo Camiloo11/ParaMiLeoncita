@@ -25,9 +25,14 @@ const openBtn     = $("#open-btn");
 const bloom       = $("#bloom");
 const experience  = $("#experience");
 const heroFrame   = $("#hero-frame");
-const heroFigure  = $("#hero-figure");
 const heroPhoto   = $("#hero-photo");
+const letterBtn   = $("#letter-btn");
+const letterModal = $("#letter-modal");
+const letterPaper = document.querySelector("#letter-modal .letter");
+const letterClose = $("#letter-close");
+const letterEnd   = $("#letter-end");
 const finale      = $("#finale");
+const finaleClose = $("#finale-close");
 const replayBtn   = $("#replay-btn");
 const popover     = $("#popover");
 const popoverText = $("#popover-text");
@@ -121,11 +126,8 @@ const PetalEngine = (() => {
     ctx.restore();
   }
 
-  let t = 0;
-
   function frame() {
     if (!running) return;
-    t += 0.016;
     ctx.clearRect(0, 0, W, H);
 
     // ajustar población ambiente suavemente
@@ -197,7 +199,7 @@ const PetalEngine = (() => {
     for (let i = 0; i < count; i++) bursts.push(makeBurstPetal(cx, cy));
   }
 
-  /* lluvia desde arriba (triple clic en la foto) */
+  /* lluvia desde arriba (triple toque en la foto) */
   function rain(count = 70) {
     if (reducedMotion) return;
     for (let i = 0; i < count; i++) {
@@ -223,7 +225,7 @@ const PetalEngine = (() => {
 })();
 
 /* ═══════════════════════════════════════════════════════════════
-   Reproductor personalizado
+   Reproductor personalizado — ella misma le da play 🎵
    ═══════════════════════════════════════════════════════════════ */
 
 const Player = (() => {
@@ -236,6 +238,7 @@ const Player = (() => {
   const vizBars  = [...document.querySelectorAll("#player-viz i")];
 
   let analyser = null;
+  let analyserTried = false;
   let vizRaf = null;
   let scrubbing = false;
 
@@ -246,7 +249,10 @@ const Player = (() => {
     return `${m}:${sec.toString().padStart(2, "0")}`;
   };
 
+  /* el AudioContext se crea en el primer play (gesto de usuaria) */
   function setupAnalyser() {
+    if (analyserTried) return;
+    analyserTried = true;
     try {
       const AC = window.AudioContext || window.webkitAudioContext;
       if (!AC) throw new Error("no AudioContext");
@@ -299,8 +305,12 @@ const Player = (() => {
   /* eventos */
 
   toggle.addEventListener("click", () => {
-    if (audio.paused) audio.play();
-    else audio.pause();
+    if (audio.paused) {
+      setupAnalyser();
+      audio.play();
+    } else {
+      audio.pause();
+    }
   });
 
   audio.addEventListener("play", () => {
@@ -347,21 +357,13 @@ const Player = (() => {
     if (e.key === "ArrowLeft")  audio.currentTime = Math.max(0, audio.currentTime - 5);
   });
 
-  function begin() {
-    setupAnalyser();
-    showDuration();
-    audio.volume = 1;
-    const p = audio.play();
-    if (p) p.catch(() => {/* si el navegador lo bloquea, queda listo el botón */});
-    player.hidden = false;
-    requestAnimationFrame(() => requestAnimationFrame(() => player.classList.add("is-in")));
-  }
+  showDuration();
 
-  return { begin };
+  return {};
 })();
 
 /* ═══════════════════════════════════════════════════════════════
-   ESCENA 1 → apertura
+   ESCENA 1 → apertura (sin autoplay: la música la enciende ella)
    ═══════════════════════════════════════════════════════════════ */
 
 let opened = false;
@@ -373,98 +375,68 @@ openBtn.addEventListener("click", () => {
   bloom.classList.add("is-active");
   PetalEngine.start();
   PetalEngine.burst(window.innerWidth / 2, window.innerHeight / 2, 70);
-  Player.begin();
 
   intro.classList.add("is-leaving");
   experience.hidden = false;
   requestAnimationFrame(() => requestAnimationFrame(() => experience.classList.add("is-open")));
 
   setTimeout(() => { intro.remove(); }, 2000);
-  initReveals();
 });
 
 /* ═══════════════════════════════════════════════════════════════
-   Scroll reveal (con escalonado por grupo)
-   ═══════════════════════════════════════════════════════════════ */
-
-function initReveals() {
-  document.querySelectorAll(".reveal-group").forEach((group) => {
-    group.querySelectorAll(".reveal").forEach((el, i) => {
-      el.style.setProperty("--d", `${Math.min(i * 0.12, 0.6)}s`);
-    });
-  });
-
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          io.unobserve(entry.target);
-        }
-      }
-    },
-    { threshold: 0.15, rootMargin: "0px 0px -6% 0px" }
-  );
-
-  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ESCENA 2 · Hero: parallax + tilt + fallback de imagen
+   Foto: tilt sutil (escritorio) + fallback + triple toque
    ═══════════════════════════════════════════════════════════════ */
 
 (function heroDepth() {
   if (reducedMotion) return;
+  if (!window.matchMedia("(pointer: fine)").matches) return;
 
   let targetRX = 0, targetRY = 0, curRX = 0, curRY = 0;
-  let scrollY = 0;
-  let ticking = false;
 
-  const finePointer = window.matchMedia("(pointer: fine)").matches;
+  window.addEventListener("pointermove", (e) => {
+    const nx = e.clientX / window.innerWidth - 0.5;
+    const ny = e.clientY / window.innerHeight - 0.5;
+    targetRY = nx * 6;
+    targetRX = -ny * 5;
+  });
 
-  if (finePointer) {
-    window.addEventListener("pointermove", (e) => {
-      const nx = e.clientX / window.innerWidth - 0.5;
-      const ny = e.clientY / window.innerHeight - 0.5;
-      targetRY = nx * 6;
-      targetRX = -ny * 5;
-    });
-  }
-
-  function apply() {
-    ticking = false;
+  (function apply() {
     curRX += (targetRX - curRX) * 0.06;
     curRY += (targetRY - curRY) * 0.06;
-    const rect = heroFigure.getBoundingClientRect();
-    const par = rect.top * -0.06; // parallax sutil al hacer scroll
     heroFrame.style.transform =
-      `translateY(${par.toFixed(1)}px) rotateX(${curRX.toFixed(2)}deg) rotateY(${curRY.toFixed(2)}deg)`;
-    if (Math.abs(targetRX - curRX) > 0.01 || Math.abs(targetRY - curRY) > 0.01 || finePointer) {
-      requestAnimationFrame(apply);
-    }
-  }
-
-  function kick() {
-    if (!ticking) { ticking = true; requestAnimationFrame(apply); }
-  }
-
-  window.addEventListener("scroll", kick, { passive: true });
-  if (finePointer) requestAnimationFrame(apply);
+      `perspective(900px) rotateX(${curRX.toFixed(2)}deg) rotateY(${curRY.toFixed(2)}deg)`;
+    requestAnimationFrame(apply);
+  })();
 })();
 
-/* fallback elegante si la foto aún no está en assets/images/cata.jpg */
+/* fallback elegante si la foto no carga */
 (function photoFallback() {
   const activate = () => {
     heroFrame.classList.add("is-fallback");
     document.querySelector(".finale__photo-wrap").classList.add("is-fallback");
   };
-  // el error pudo dispararse antes de que este script cargara
   if (heroPhoto.complete && heroPhoto.naturalWidth === 0) activate();
   else heroPhoto.addEventListener("error", activate);
 })();
 
+/* triple toque en la fotografía → lluvia de pétalos */
+(function tripleTap() {
+  let taps = 0;
+  let timer = null;
+  heroFrame.addEventListener("click", () => {
+    taps++;
+    clearTimeout(timer);
+    if (taps >= 3) {
+      taps = 0;
+      PetalEngine.rain(80);
+    } else {
+      timer = setTimeout(() => (taps = 0), 700);
+    }
+  });
+})();
+
 /* ═══════════════════════════════════════════════════════════════
-   ESCENA 4 · Jardín interactivo
+   Jardín interactivo
    ═══════════════════════════════════════════════════════════════ */
 
 let popoverTimer = null;
@@ -519,62 +491,82 @@ document.querySelectorAll(".flower").forEach((btn) => {
       showPopover(GARDEN_MESSAGES[kind]);
     }
   });
-});
-
-/* triple clic/tap en la fotografía → lluvia de pétalos */
-(function tripleTap() {
-  let taps = 0;
-  let timer = null;
-  heroFrame.addEventListener("click", () => {
-    taps++;
-    clearTimeout(timer);
-    if (taps >= 3) {
-      taps = 0;
-      PetalEngine.rain(80);
-    } else {
-      timer = setTimeout(() => (taps = 0), 700);
-    }
-  });
-})();
+})
 
 /* ═══════════════════════════════════════════════════════════════
-   FINAL — la luz cambia, las flores rodean, silencio visual
+   ESCENA 3 · La carta (popup)
    ═══════════════════════════════════════════════════════════════ */
 
-(function finaleSequence() {
-  let played = false;
+function openLetter() {
+  letterModal.hidden = false;
+  document.body.classList.add("no-scroll");
+  letterPaper.scrollTop = 0;
+  requestAnimationFrame(() => requestAnimationFrame(() => letterModal.classList.add("is-open")));
+}
 
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting || played) continue;
-        played = true;
-        io.disconnect();
+function closeLetter() {
+  letterModal.classList.remove("is-open");
+  document.body.classList.remove("no-scroll");
+  setTimeout(() => { letterModal.hidden = true; }, 700);
+}
 
-        document.body.classList.add("is-finale");
-        PetalEngine.setFinale(true);
-        finale.classList.add("is-live");          // aparece el mensaje
+letterBtn.addEventListener("click", openLetter);
+letterClose.addEventListener("click", closeLetter);
+document.querySelector("[data-close-letter]").addEventListener("click", closeLetter);
 
-        setTimeout(() => {
-          finale.classList.add("is-quiet");       // silencio visual: solo la foto
-        }, 6000);
+/* ═══════════════════════════════════════════════════════════════
+   FINAL — la luz cambia, las flores rodean la pantalla
+   ═══════════════════════════════════════════════════════════════ */
 
-        setTimeout(() => {
-          replayBtn.hidden = false;
-          requestAnimationFrame(() =>
-            requestAnimationFrame(() => replayBtn.classList.add("is-in"))
-          );
-        }, 10500);
-      }
-    },
-    { threshold: 0.45 }
-  );
+let finaleTimers = [];
 
-  io.observe(finale);
+function runFinale() {
+  finaleTimers.forEach(clearTimeout);
+  finaleTimers = [];
 
-  replayBtn.addEventListener("click", () => {
-    document.body.classList.remove("is-finale");
-    PetalEngine.setFinale(false);
-    window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
-  });
-})();
+  finale.hidden = false;
+  finale.classList.remove("is-live", "is-quiet");
+  replayBtn.hidden = true;
+  replayBtn.classList.remove("is-in");
+
+  document.body.classList.add("is-finale", "no-scroll");
+  PetalEngine.setFinale(true);
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    finale.classList.add("is-open");
+    finaleTimers.push(setTimeout(() => finale.classList.add("is-live"), 600));
+    finaleTimers.push(setTimeout(() => finale.classList.add("is-quiet"), 6200));
+    finaleTimers.push(setTimeout(() => {
+      replayBtn.hidden = false;
+      requestAnimationFrame(() => requestAnimationFrame(() => replayBtn.classList.add("is-in")));
+    }, 9800));
+  }));
+}
+
+function closeFinale() {
+  finaleTimers.forEach(clearTimeout);
+  finaleTimers = [];
+  finale.classList.remove("is-open");
+  document.body.classList.remove("is-finale", "no-scroll");
+  PetalEngine.setFinale(false);
+  setTimeout(() => { finale.hidden = true; }, 1400);
+}
+
+letterEnd.addEventListener("click", () => {
+  closeLetter();
+  setTimeout(runFinale, 500);
+});
+
+finaleClose.addEventListener("click", closeFinale);
+
+replayBtn.addEventListener("click", () => {
+  closeFinale();
+  setTimeout(openLetter, 600);
+});
+
+/* Escape cierra los popups */
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  if (!letterModal.hidden) closeLetter();
+  else if (!finale.hidden) closeFinale();
+});

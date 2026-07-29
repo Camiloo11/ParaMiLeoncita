@@ -1,57 +1,36 @@
 # Para Cata 💗
 
-Una pequeña experiencia hecha con calma: una portada, una fotografía, una carta,
-un jardín que responde al tacto y una canción de fondo.
+Una pequeña experiencia hecha con calma: una portada, la fotografía, una carta
+que se abre como popup, un jardín que responde al tacto y una cancioncita
+que ella misma reproduce.
 
-Sin frameworks. Solo HTML, CSS y JavaScript.
+Sin frameworks. Solo HTML, CSS y JavaScript. Todo cabe en una sola pantalla —
+sin scroll eterno.
 
 ## Estructura
 
 ```
-index.html            La experiencia completa (escenas 1–4 + final)
+index.html            La experiencia completa
 styles/main.css       Todo el diseño: paleta, tipografía, animaciones
-scripts/main.js       Pétalos, reproductor, contador e interacciones
-assets/images/        📷 La fotografía va aquí (ver abajo)
+scripts/main.js       Pétalos, reproductor, popups e interacciones
+assets/images/        La fotografía (cata.jpg)
 assets/music/         La canción (build-my-life.mp3)
 assets/icons/         Favicon
 ```
 
-## ⚠️ Antes de compartirla: agrega la fotografía
+## 🌐 Sitio publicado
 
-La página espera la foto en:
+El sitio se despliega automáticamente con GitHub Actions en cada push:
 
-```
-assets/images/cata.jpg
-```
+**https://camiloo11.github.io/ParaMiLeoncita/**
 
-Copia la fotografía de ustedes dos a esa ruta con ese nombre exacto.
-Mientras no exista, la experiencia muestra un marco elegante de respaldo,
-pero la foto es el corazón de todo — no la olvides.
+## Cómo funciona
 
-## ✏️ Editar la fecha del contador
-
-En `scripts/main.js`, al inicio del archivo:
-
-```js
-const CONFIG = {
-  startDate: new Date(2005, 1, 14), // año, mes (1–12), día
-};
-```
-
-Cambia la fecha por la que quieras celebrar (su cumpleaños, el día en que se
-conocieron…). Ojo: el mes se escribe del 1 al 12 tal como se lee.
-
-## ▶️ Cómo verla
-
-Abre `index.html` en el navegador, o mejor, sírvela localmente:
-
-```bash
-python3 -m http.server 8000
-# → http://localhost:8000
-```
-
-En el celular se ve mejor aún: súbela a GitHub Pages, Netlify o Vercel
-(es un sitio estático, no necesita nada más).
+- **Portada** → "Ábrelo con calma" abre la experiencia con bloom de luz y pétalos.
+- **Cancionsita para empezar tu día** → reproductor propio; ella misma le da play.
+- **Una carta para ti 💌** → la carta se abre como popup elegante.
+- Al cerrarla despacio → final con cambio de luz, flores en los bordes y
+  "Gracias por permitirme caminar a tu lado. 💗"
 
 ## Detalles escondidos
 
@@ -59,4 +38,10 @@ En el celular se ve mejor aún: súbela a GitHub Pages, Netlify o Vercel
 - 🌷 Tocar el tulipán → corazones
 - 🤍 Tocar el lirio → una pequeña oración
 - 📷 Triple toque sobre la fotografía → lluvia de pétalos
-- La música solo comienza cuando ella pulsa «Ábrelo con calma»
+
+## ▶️ Verla en local
+
+```bash
+python3 -m http.server 8000
+# → http://localhost:8000
+```

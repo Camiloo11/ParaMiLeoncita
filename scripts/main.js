@@ -4,13 +4,6 @@
 
 "use strict";
 
-/* ── CONFIGURACIÓN ─────────────────────────────────────────────
-   Edita aquí la fecha del contador ("Gracias por existir desde hace…").
-   Formato: año, mes (1–12), día.                                  */
-const CONFIG = {
-  startDate: new Date(2005, 1, 14), // ← 14 de febrero de 2005 (cámbiala)
-};
-
 /* Mensajes del jardín */
 const GARDEN_MESSAGES = {
   sunflower:
@@ -468,41 +461,6 @@ function initReveals() {
   // el error pudo dispararse antes de que este script cargara
   if (heroPhoto.complete && heroPhoto.naturalWidth === 0) activate();
   else heroPhoto.addEventListener("error", activate);
-})();
-
-/* ═══════════════════════════════════════════════════════════════
-   Contador — "Gracias por existir desde hace…"
-   ═══════════════════════════════════════════════════════════════ */
-
-(function counter() {
-  const daysEl = $("#counter-days");
-  const detailEl = $("#counter-detail");
-  const MS_DAY = 86400000;
-
-  function tick() {
-    const now = new Date();
-    const diff = now - CONFIG.startDate;
-    if (diff <= 0) { daysEl.textContent = "0"; return; }
-
-    daysEl.textContent = Math.floor(diff / MS_DAY).toLocaleString("es");
-
-    let years = now.getFullYear() - CONFIG.startDate.getFullYear();
-    let months = now.getMonth() - CONFIG.startDate.getMonth();
-    let days = now.getDate() - CONFIG.startDate.getDate();
-    if (days < 0) { months--; days += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
-    if (months < 0) { years--; months += 12; }
-
-    const rest = new Date(diff);
-    const h = String(rest.getUTCHours()).padStart(2, "0");
-    const m = String(rest.getUTCMinutes()).padStart(2, "0");
-    const s = String(rest.getUTCSeconds()).padStart(2, "0");
-
-    detailEl.textContent =
-      `${years} años · ${months} meses · ${days} días — y contando: ${h}:${m}:${s}`;
-  }
-
-  tick();
-  setInterval(tick, 1000);
 })();
 
 /* ═══════════════════════════════════════════════════════════════

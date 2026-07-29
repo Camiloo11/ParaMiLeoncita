@@ -1,6 +1,6 @@
 # Para Cata 💗
 
-Una pequeña experiencia hecha con calma: una portada, la fotografía, una carta
+Una pequeña experiencia: una portada, la fotografía, una carta
 que se abre como popup, un jardín que responde al tacto y una cancioncita
 que ella misma reproduce.
 
@@ -26,10 +26,10 @@ El sitio se despliega automáticamente con GitHub Actions en cada push:
 
 ## Cómo funciona
 
-- **Portada** → "Ábrelo con calma" abre la experiencia con bloom de luz y pétalos.
+- **Portada** → "Abre 💗" inicia la experiencia con bloom de luz y pétalos.
 - **Cancionsita para empezar tu día** → reproductor propio; ella misma le da play.
 - **Una carta para ti 💌** → la carta se abre como popup elegante.
-- Al cerrarla despacio → final con cambio de luz, flores en los bordes y
+- Al cerrarla → final con cambio de luz, flores en los bordes y
   "Gracias por permitirme caminar a tu lado. 💗"
 
 ## Detalles escondidos

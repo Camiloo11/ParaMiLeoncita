@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Un pequeño regalo hecho con calma." />
+  <meta name="theme-color" content="#faf6ef" />
+  <title>Para Cata 💗</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+  <!-- ═══════════ SVG: definiciones de flores (línea fina, jardín minimalista) ═══════════ -->
+  <svg class="svg-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <!-- Girasol -->
+      <symbol id="fl-sunflower" viewBox="0 0 64 64">
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path class="fl-stem" d="M32 40 C 31 48, 33 54, 32 62" stroke-width="1.4"/>
+          <path class="fl-leaf" d="M32 50 C 26 48, 22 44, 21 39 C 27 40, 30 44, 32 50 Z" stroke-width="1.2"/>
+          <g class="fl-petals" stroke-width="1.3">
+            <path d="M32 12 C 34 16, 34 20, 32 23 C 30 20, 30 16, 32 12 Z"/>
+            <path d="M45 17 C 44 21, 41 24, 38 26 C 38 22, 40 19, 45 17 Z"/>
+            <path d="M51 30 C 47 32, 43 32, 40 30 C 43 28, 47 28, 51 30 Z"/>
+            <path d="M45 43 C 41 41, 38 38, 38 34 C 41 36, 44 39, 45 43 Z"/>
+            <path d="M32 48 C 30 44, 30 40, 32 37 C 34 40, 34 44, 32 48 Z"/>
+            <path d="M19 43 C 20 39, 23 36, 26 34 C 26 38, 24 41, 19 43 Z"/>
+            <path d="M13 30 C 17 28, 21 28, 24 30 C 21 32, 17 32, 13 30 Z"/>
+            <path d="M19 17 C 23 19, 26 22, 26 26 C 23 24, 20 21, 19 17 Z"/>
+          </g>
+          <circle class="fl-center" cx="32" cy="30" r="6" stroke-width="1.3"/>
+          <circle class="fl-dot" cx="32" cy="30" r="1.6" stroke="none"/>
+        </g>
+      </symbol>
+
+      <!-- Tulipán -->
+      <symbol id="fl-tulip" viewBox="0 0 64 64">
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path class="fl-stem" d="M32 34 C 31.5 44, 32.5 53, 32 62" stroke-width="1.4"/>
+          <path class="fl-leaf" d="M32 52 C 25 50, 21 45, 20 38 C 27 40, 31 45, 32 52 Z" stroke-width="1.2"/>
+          <g class="fl-petals" stroke-width="1.3">
+            <path d="M22 18 C 22 27, 25 32, 32 34 C 30 27, 27 21, 22 18 Z"/>
+            <path d="M42 18 C 42 27, 39 32, 32 34 C 34 27, 37 21, 42 18 Z"/>
+            <path d="M32 12 C 27 17, 26 26, 32 34 C 38 26, 37 17, 32 12 Z"/>
+          </g>
+        </g>
+      </symbol>
+
+      <!-- Lirio -->
+      <symbol id="fl-lily" viewBox="0 0 64 64">
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path class="fl-stem" d="M32 38 C 31 47, 33 55, 32 62" stroke-width="1.4"/>
+          <path class="fl-leaf" d="M32 54 C 38 52, 42 48, 43 43 C 37 44, 34 48, 32 54 Z" stroke-width="1.2"/>
+          <g class="fl-petals" stroke-width="1.3">
+            <path d="M32 10 C 34.5 16, 34.5 24, 32 30 C 29.5 24, 29.5 16, 32 10 Z"/>
+            <path d="M14 20 C 20 20, 27 24, 31 30 C 24 30, 17 26, 14 20 Z"/>
+            <path d="M50 20 C 44 20, 37 24, 33 30 C 40 30, 47 26, 50 20 Z"/>
+            <path d="M18 38 C 22 33, 27 30.5, 31 31 C 28 36, 23 39, 18 38 Z"/>
+            <path d="M46 38 C 42 33, 37 30.5, 33 31 C 36 36, 41 39, 46 38 Z"/>
+          </g>
+          <g class="fl-center" stroke-width="1">
+            <path d="M32 30 L 30 24"/>
+            <path d="M32 30 L 32 22.5"/>
+            <path d="M32 30 L 34 24"/>
+          </g>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ═══════════ Capa de pétalos y partículas ═══════════ -->
+  <canvas id="petal-canvas" aria-hidden="true"></canvas>
+
+  <!-- ═══════════ Bloom de luz (transición de apertura) ═══════════ -->
+  <div class="bloom" id="bloom" aria-hidden="true"></div>
+
+  <!-- ═══════════ ESCENA 1 · Portada ═══════════ -->
+  <section class="intro" id="intro">
+    <div class="intro__inner">
+      <p class="intro__eyebrow">Tengo un pequeño regalo para ti&hellip;</p>
+      <h1 class="intro__name">Cata <span class="intro__heart">💗</span></h1>
+      <button class="intro__btn" id="open-btn" type="button">
+        <span class="intro__btn-icon">🌷</span>
+        <span>Ábrelo con calma</span>
+      </button>
+    </div>
+    <p class="intro__hint">con audio, mejor</p>
+  </section>
+
+  <!-- ═══════════ EXPERIENCIA ═══════════ -->
+  <main class="experience" id="experience" hidden>
+
+    <!-- ESCENA 2 · Hero -->
+    <section class="hero" id="hero">
+      <p class="hero__kicker reveal">Para mi Leoncita</p>
+      <figure class="hero__figure reveal" id="hero-figure">
+        <div class="hero__halo" aria-hidden="true"></div>
+        <div class="hero__frame" id="hero-frame">
+          <img
+            src="assets/images/cata.jpg"
+            alt="Nosotros dos"
+            class="hero__photo"
+            id="hero-photo"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <div class="hero__photo-fallback" aria-hidden="true">
+            <svg width="56" height="56"><use href="#fl-tulip"/></svg>
+            <span>tú &amp; yo</span>
+          </div>
+          <div class="hero__sheen" aria-hidden="true"></div>
+        </div>
+        <figcaption class="hero__caption">tú &nbsp;&amp;&nbsp; yo</figcaption>
+      </figure>
+      <div class="hero__scrollcue reveal" aria-hidden="true">
+        <span>desliza con calma</span>
+        <i></i>
+      </div>
+    </section>
+
+    <!-- Contador -->
+    <section class="counter reveal-group" id="counter">
+      <p class="counter__label reveal">Gracias por existir desde hace&hellip;</p>
+      <p class="counter__days reveal"><span id="counter-days">—</span><em> días</em></p>
+      <p class="counter__detail reveal" id="counter-detail"></p>
+    </section>
+
+    <!-- ESCENA 3 · La carta -->
+    <section class="letter-section" id="letter">
+      <header class="letter-intro reveal-group">
+        <svg class="letter-intro__flower reveal" width="44" height="44" aria-hidden="true"><use href="#fl-lily"/></svg>
+        <p class="letter-intro__eyebrow reveal">una carta, escrita despacio</p>
+      </header>
+
+      <article class="letter reveal-group" id="letter-paper">
+        <h2 class="letter__title reveal">Mi Leoncita 💗</h2>
+
+        <p class="reveal">Antes de cerrar los ojos esta noche, quería dejarte unas palabritas para que sepas que alguien piensa en ti con muchísimo cariño.</p>
+
+        <p class="reveal">Sé que hoy no te has sentido bien, y de verdad me duele imaginarte enfermita. Si pudiera, te llevaría una cobijita, un chocolatito caliente, te daría un besito en la frente y me quedaría ahí, haciéndote compañía hasta que te sintieras mejor.</p>
+
+        <p class="reveal">Pero mientras eso pasa, quiero que al menos estas palabras te abracen un poquito.</p>
+
+        <p class="reveal">No siempre tienes que ser fuerte, productiva o tener todo bajo control. Descansa. Tu cuerpo también necesita que lo escuches. Mañana habrá tiempo para seguir conquistando el mundo, hoy solo quiero que te cuides.</p>
+
+        <p class="reveal">Quiero que recuerdes algo: eres profundamente amada. No solo por mí, sino por Aquel que nunca deja de cuidarte. Incluso cuando duermes, Dios sigue velando por ti. Él conoce cada molestia, cada cansancio y cada pequeño dolor, y estoy seguro de que esta noche te sostiene entre Sus manos.</p>
+
+        <p class="reveal">Y mientras Él cuida de ti, yo también quiero hacerlo, aunque sea de la forma en que hoy puedo.</p>
+
+        <p class="reveal">Gracias por existir, por alegrar mis días, por hacerme sonreír con tus ocurrencias, por tu dulzura y por ese corazón tan bonito que tienes. No sabes cuánto agradezco a Dios por haberte puesto en mi camino.</p>
+
+        <p class="reveal">Mi oración antes de dormir es muy sencilla: que mañana despiertes un poquito mejor que hoy, con más fuerzas, con más paz y con una gran sonrisa. Ojalá pudiera verla en persona, pero mientras tanto me conformo con imaginarla.</p>
+
+        <p class="reveal">Descansa, mi niña hermosa.</p>
+
+        <p class="reveal">Que el Señor te conceda un sueño tranquilo, renueve tus fuerzas y te recuerde, incluso mientras duermes, cuánto te ama.</p>
+
+        <p class="reveal">Y cuando mañana abras los ojos, espero que recuerdes esto: anoche hubo un niño que, antes de quedarse dormido, dio gracias a Dios por tu vida y le pidió con todo su corazón que cuidara de su Leoncita.</p>
+
+        <p class="letter__vow reveal">Te amo mushito con infinito. 💗</p>
+
+        <p class="letter__signoff reveal">Buenas noches, mi niña.</p>
+      </article>
+    </section>
+
+    <!-- ESCENA 4 · Jardín interactivo -->
+    <section class="garden reveal-group" id="garden">
+      <p class="garden__hint reveal">un jardín pequeñito &mdash; toca cada flor</p>
+      <div class="garden__row reveal">
+        <button class="flower flower--sunflower" type="button" data-flower="sunflower" aria-label="Tocar el girasol">
+          <svg width="64" height="64" aria-hidden="true"><use href="#fl-sunflower"/></svg>
+        </button>
+        <button class="flower flower--tulip" type="button" data-flower="tulip" aria-label="Tocar el tulipán">
+          <svg width="64" height="64" aria-hidden="true"><use href="#fl-tulip"/></svg>
+        </button>
+        <button class="flower flower--lily" type="button" data-flower="lily" aria-label="Tocar el lirio">
+          <svg width="64" height="64" aria-hidden="true"><use href="#fl-lily"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- FINAL -->
+    <section class="finale" id="finale">
+      <p class="finale__message" id="finale-message">Gracias por permitirme caminar a tu lado. 💗</p>
+
+      <figure class="finale__photo-wrap" id="finale-photo" aria-hidden="true">
+        <img src="assets/images/cata.jpg" alt="" class="finale__photo" loading="lazy" decoding="async" />
+      </figure>
+
+      <button class="finale__btn" id="replay-btn" type="button" hidden>
+        Volver a leer&nbsp;🤍
+      </button>
+    </section>
+
+  </main>
+
+  <!-- Flores del borde (aparecen en el final) -->
+  <div class="edge-garden" id="edge-garden" aria-hidden="true">
+    <svg class="edge-fl edge-fl--tl" width="52" height="52"><use href="#fl-tulip"/></svg>
+    <svg class="edge-fl edge-fl--tr" width="56" height="56"><use href="#fl-sunflower"/></svg>
+    <svg class="edge-fl edge-fl--bl" width="54" height="54"><use href="#fl-lily"/></svg>
+    <svg class="edge-fl edge-fl--br" width="50" height="50"><use href="#fl-tulip"/></svg>
+    <svg class="edge-fl edge-fl--ml" width="44" height="44"><use href="#fl-sunflower"/></svg>
+    <svg class="edge-fl edge-fl--mr" width="44" height="44"><use href="#fl-lily"/></svg>
+  </div>
+
+  <!-- Tarjeta flotante de las flores -->
+  <div class="popover" id="popover" role="status" aria-live="polite" hidden>
+    <p class="popover__text" id="popover-text"></p>
+  </div>
+
+  <!-- ═══════════ Reproductor ═══════════ -->
+  <div class="player" id="player" hidden>
+    <button class="player__toggle" id="player-toggle" type="button" aria-label="Pausar la música">
+      <svg class="player__icon player__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M8.5 6.2v11.6c0 .95 1.04 1.53 1.85 1.03l9.3-5.8a1.21 1.21 0 0 0 0-2.06l-9.3-5.8c-.81-.5-1.85.08-1.85 1.03Z"/>
+      </svg>
+      <svg class="player__icon player__icon--pause" viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="7" y="5.5" width="3.4" height="13" rx="1.7"/>
+        <rect x="13.6" y="5.5" width="3.4" height="13" rx="1.7"/>
+      </svg>
+    </button>
+
+    <div class="player__viz" id="player-viz" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i>
+    </div>
+
+    <div class="player__timeline">
+      <span class="player__time" id="time-current">0:00</span>
+      <div class="player__track" id="player-track" role="slider" aria-label="Progreso de la canción"
+           aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+        <div class="player__fill" id="player-fill"></div>
+        <div class="player__thumb" id="player-thumb"></div>
+      </div>
+      <span class="player__time" id="time-total">0:00</span>
+    </div>
+  </div>
+
+  <audio id="audio" src="assets/music/build-my-life.mp3" preload="metadata"></audio>
+
+  <script src="scripts/main.js" defer></script>
+</body>
+</html>
